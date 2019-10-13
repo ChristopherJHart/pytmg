@@ -78,3 +78,86 @@ def test_tmg_transceiver_init_valid_data():
     assert xcvr.soft_release_dom == "ACI-N9KDK9-11.3(2)"
     assert xcvr.type == "Optic"
 
+def test_tmg_transceiver_clean_aci_sw_release():
+    input = """{
+        "tmgId": 24739,
+        "productFamilyId": 5,
+        "productFamily": "QSFP100",
+        "productModelId": 1,
+        "productId": "QSFP-100G-SR4-S",
+        "version": " ",
+        "versionId": null,
+        "description": null,
+        "formFactor": "QSFP28",
+        "reach": "100m (OM4)",
+        "temperatureRange": "0 to 70C",
+        "digitalDiagnostic": "Y",
+        "cableType": "Ribbon Fiber",
+        "media": "MMF",
+        "connectorType": "MPO-12",
+        "transmissionStandard": " ",
+        "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/datasheet-c78-736282.html",
+        "endOfSale": " ",
+        "dataRate": "100 Gbps",
+        "transceiverNotes": null,
+        "noteCount": 0,
+        "state": null,
+        "stateMessage": null,
+        "updatedOn": null,
+        "updatedBy": null,
+        "transceiverBusinessUnit": "TMG",
+        "networkModelId": 43,
+        "breakoutMode": " ",
+        "osType": "ACI",
+        "domSupport": "ACI",
+        "softReleaseMinVer": "ACI-N9KDK9-11.3(2)",
+        "networkDeviceNotes": null,
+        "releaseId": 1061,
+        "softReleaseDOM": "ACI-N9KDK9-11.3(2)",
+        "type": "Optic"
+    }"""
+    xcvr = TMGTransceiver(json.loads(input))
+    assert xcvr is not None
+    assert xcvr.clean_soft_release_min_ver == "11.3(2)"
+
+def test_tmg_transceiver_clean_nxos_sw_release():
+    input = """{
+        "tmgId": 24740,
+        "productFamilyId": 5,
+        "productFamily": "QSFP100",
+        "productModelId": 1,
+        "productId": "QSFP-100G-SR4-S",
+        "version": " ",
+        "versionId": null,
+        "description": null,
+        "formFactor": "QSFP28",
+        "reach": "100m (OM4)",
+        "temperatureRange": "0 to 70C",
+        "digitalDiagnostic": "Y",
+        "cableType": "Ribbon Fiber",
+        "media": "MMF",
+        "connectorType": "MPO-12",
+        "transmissionStandard": " ",
+        "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/datasheet-c78-736282.html",
+        "endOfSale": " ",
+        "dataRate": "100 Gbps",
+        "transceiverNotes": null,
+        "noteCount": 0,
+        "state": null,
+        "stateMessage": null,
+        "updatedOn": null,
+        "updatedBy": null,
+        "transceiverBusinessUnit": "TMG",
+        "networkModelId": 43,
+        "breakoutMode": " ",
+        "osType": "NX-OS",
+        "domSupport": "NX-OS",
+        "softReleaseMinVer": "NX-OS 7.03I4.2",
+        "networkDeviceNotes": null,
+        "releaseId": 552,
+        "softReleaseDOM": "NX-OS 7.03I4.2",
+        "type": "Optic"
+    }"""
+    xcvr = TMGTransceiver(json.loads(input))
+    assert xcvr is not None
+    assert xcvr.clean_soft_release_min_ver == "7.0(3)I4(2)"
