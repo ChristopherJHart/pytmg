@@ -5,7 +5,7 @@ A Python API client library for Cisco's [Transceiver Module Group (TMG) Compatib
 ## Quick Links
 
 * [Installation](https://github.com/ChristopherJHart/pytmg#Installation)
-* [Getting Started]((https://github.com/ChristopherJHart/pytmg#Getting-Started))
+* [Getting Started]((https://github.com/ChristopherJHart/pytmg#getting-started))
 
 ## Installation
 
