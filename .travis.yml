@@ -12,12 +12,14 @@ before_install:
 install:
   - pip install ".[test]" .
 
-script:
-  - pytest
-  - black --check pytmg/
-
 jobs:
   include:
+    - stage: run unit tests
+      python: 3.6
+      script: pytest
+    - stage: test black code formatting
+      python: 3.6
+      script: black --check pytmg/
     - stage: pypi release
       python: 3.6
       script: echo "Deploying to PyPI..."
