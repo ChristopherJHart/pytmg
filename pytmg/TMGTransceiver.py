@@ -157,5 +157,5 @@ class TMGTransceiver:
             if nxos_9_res:
                 mnr_rel = nxos_9_res.group(1)
                 mnt_rel = nxos_9_res.group(2)
-                clean_sw_rel = "9.{}.({})".format(mnr_rel, mnt_rel)
+                clean_sw_rel = "9.{}({})".format(mnr_rel, mnt_rel)
                 return clean_sw_rel
