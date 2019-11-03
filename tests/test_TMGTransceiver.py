@@ -4,7 +4,7 @@ from pytmg.TMGTransceiver import TMGTransceiver
 
 
 def test_tmg_transceiver_init_valid_data():
-    input = """{
+    input_data = """{
         "tmgId": 24739,
         "productFamilyId": 5,
         "productFamily": "QSFP100",
@@ -41,7 +41,7 @@ def test_tmg_transceiver_init_valid_data():
         "softReleaseDOM": "ACI-N9KDK9-11.3(2)",
         "type": "Optic"
     }"""
-    xcvr = TMGTransceiver(json.loads(input))
+    xcvr = TMGTransceiver(json.loads(input_data))
     assert xcvr is not None
     assert xcvr.tmg_id == 24739
     assert xcvr.product_family_id == 5
@@ -84,7 +84,7 @@ def test_tmg_transceiver_init_valid_data():
 
 
 def test_tmg_transceiver_clean_aci_11_sw_release():
-    input = """{
+    input_data = """{
         "tmgId": 24739,
         "productFamilyId": 5,
         "productFamily": "QSFP100",
@@ -121,7 +121,7 @@ def test_tmg_transceiver_clean_aci_11_sw_release():
         "softReleaseDOM": "ACI-N9KDK9-11.3(2)",
         "type": "Optic"
     }"""
-    xcvr = TMGTransceiver(json.loads(input))
+    xcvr = TMGTransceiver(json.loads(input_data))
     assert xcvr is not None
     assert xcvr.clean_soft_release_min_ver == "11.3(2)"
 
@@ -164,13 +164,13 @@ def test_tmg_transceiver_clean_aci_14_sw_release():
         "softReleaseDOM": "ACI-N9KDK9-14.1(1)",
         "type": "Optic"
     }"""
-    xcvr = TMGTransceiver(json.loads(input))
+    xcvr = TMGTransceiver(json.loads(input_data))
     assert xcvr is not None
     assert xcvr.clean_soft_release_min_ver == "14.1(1)"
 
 
 def test_tmg_transceiver_clean_nxos_7_sw_release():
-    input = """{
+    input_data = """{
         "tmgId": 24740,
         "productFamilyId": 5,
         "productFamily": "QSFP100",
@@ -207,7 +207,7 @@ def test_tmg_transceiver_clean_nxos_7_sw_release():
         "softReleaseDOM": "NX-OS 7.03I4.2",
         "type": "Optic"
     }"""
-    xcvr = TMGTransceiver(json.loads(input))
+    xcvr = TMGTransceiver(json.loads(input_data))
     assert xcvr is not None
     assert xcvr.clean_soft_release_min_ver == "7.0(3)I4(2)"
 
