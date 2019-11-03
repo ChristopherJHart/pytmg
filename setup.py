@@ -5,7 +5,7 @@ with open("README.md") as infile:
 
 setup(
     name="pytmg",
-    version="0.0.1",
+    version="0.0.2",
     author="Christopher Hart",
     author_email="christopherjhart95@gmail.com",
     description="A Python API client library for Cisco's Transceiver Module Group (TMG) Compatibility Matrix",
