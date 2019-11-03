@@ -10,6 +10,7 @@ class TMGResult:
 
 
     """
+
     def __init__(self, input_results):
         """
         Instantiates TMGResult object and parses results of Cisco's TMG API.
