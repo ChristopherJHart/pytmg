@@ -10,7 +10,7 @@ class TMGResult:
 
 
     """
-    def __init__(self, input):
+    def __init__(self, input_results):
         """
         Instantiates TMGResult object and parses results of Cisco's TMG API.
 
@@ -48,10 +48,10 @@ class TMGResult:
         match the search parameters are organized under each TMGNetworkDevice
         object.
 
-        :param dict input: A dictionary containing the results of a TMG search
+        :param dict input_results: A dictionary containing the results of a TMG search
             against Cisco's TMG API.
         """
-        self.result = input
+        self.result = input_results
         self.total_count = self.result["totalCount"]
         self.network_devices = []
         for product_family in self.result["networkDevices"]:
