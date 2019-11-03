@@ -15,7 +15,7 @@ class TMGResult:
         """
         Instantiates TMGResult object and parses results of Cisco's TMG API.
 
-        The results of Cisco's TMG API is hierarchically organized so that
+        The results of Cisco's TMG API are hierarchically organized so that
         network devices are at the "top" of the tree, while the transceivers
         supported on those network devices are attached to each network
         device at the bottom of the tree. For example, consider a search
