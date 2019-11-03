@@ -2,6 +2,7 @@ import pytest
 import json
 from pytmg.TMGTransceiver import TMGTransceiver
 
+
 def test_tmg_transceiver_init_valid_data():
     input = """{
         "tmgId": 24739,
@@ -58,7 +59,10 @@ def test_tmg_transceiver_init_valid_data():
     assert xcvr.media == "MMF"
     assert xcvr.connector_type == "MPO-12"
     assert xcvr.transmission_standard == " "
-    assert xcvr.transceiver_model_data_sheet == "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/datasheet-c78-736282.html"
+    assert (
+        xcvr.transceiver_model_data_sheet
+        == "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/datasheet-c78-736282.html"
+    )
     assert xcvr.end_of_sale == " "
     assert xcvr.data_rate == "100 Gbps"
     assert xcvr.transceiver_notes is None
@@ -77,6 +81,7 @@ def test_tmg_transceiver_init_valid_data():
     assert xcvr.release_id == 1061
     assert xcvr.soft_release_dom == "ACI-N9KDK9-11.3(2)"
     assert xcvr.type == "Optic"
+
 
 def test_tmg_transceiver_clean_aci_sw_release():
     input = """{
@@ -119,6 +124,7 @@ def test_tmg_transceiver_clean_aci_sw_release():
     xcvr = TMGTransceiver(json.loads(input))
     assert xcvr is not None
     assert xcvr.clean_soft_release_min_ver == "11.3(2)"
+
 
 def test_tmg_transceiver_clean_nxos_sw_release():
     input = """{

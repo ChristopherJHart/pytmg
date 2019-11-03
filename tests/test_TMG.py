@@ -1,9 +1,11 @@
 import pytest
 from pytmg import TMG
 
+
 def test_tmg_init():
     tmg = TMG.TMG()
     assert tmg is not None
+
 
 class TestDeviceSearching:
     def test_tmg_search_for_n9k_93180yc_ex(self):
@@ -11,7 +13,7 @@ class TestDeviceSearching:
         res = tmg.search_device("N9K-C93180YC-EX")
         assert res is not None
         assert res.network_devices[0].product_id == "N9K-C93180YC-EX"
-    
+
     def test_tmg_search_for_n9k_9372px(self):
         tmg = TMG.TMG()
         res = tmg.search_device("N9K-C9372PX")
@@ -23,7 +25,7 @@ class TestDeviceSearching:
         res = tmg.search_device("WS-C3750-24PS")
         assert res is not None
         assert res.network_devices[0].product_id == "WS-C3750-24PS"
-    
+
     def test_tmg_search_all_3750s(self):
         tmg = TMG.TMG()
         res = tmg.search_device("WS-C3750")
@@ -68,9 +70,9 @@ class TestDeviceSearching:
 
     def test_tmg_search_multiple_devices(self):
         device_list = [
-            "N9K-C93180YC-FX", # Nexus 93180YC-FX
-            "C9300-48S",       # Catalyst 9300-48S
-            "2951",            # ISR 2951
+            "N9K-C93180YC-FX",  # Nexus 93180YC-FX
+            "C9300-48S",  # Catalyst 9300-48S
+            "2951",  # ISR 2951
         ]
         tmg = TMG.TMG()
         res_list = tmg.search_devices(device_list)

@@ -1,5 +1,6 @@
 from pytmg.TMGTransceiver import TMGTransceiver
 
+
 class TMGNetworkDevice:
     def __init__(self, input, product_family, network_family_data_sheet):
         self.result = input

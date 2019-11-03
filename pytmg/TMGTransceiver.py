@@ -1,5 +1,6 @@
 import re
 
+
 class TMGTransceiver:
     def __init__(self, input):
         self.result = input
@@ -39,7 +40,7 @@ class TMGTransceiver:
         self.soft_release_dom = self.result["softReleaseDOM"]
         self.type = self.result["type"]
         self.clean_soft_release_min_ver = self._clean_soft_release()
-    
+
     def _clean_soft_release(self):
         if self.os_type == "ACI":
             return self._clean_aci_soft_release()
@@ -48,7 +49,7 @@ class TMGTransceiver:
         else:
             # Return "dirty" software release, which is better than nothing
             return self.soft_release_min_ver
-    
+
     def _clean_aci_soft_release(self):
         # Most ACI transceivers return with a softReleaseMinVer format
         # as follows:
@@ -60,9 +61,9 @@ class TMGTransceiver:
         # substring in the softReleaseMinVer value.
         if "ACI-N9KDK9-" in self.soft_release_min_ver:
             return self.soft_release_min_ver.replace("ACI-N9KDK9-", "")
-    
+
     def _clean_nxos_soft_release(self):
-        # Most NX-OS transceivers return with a softReleaseMinVer format 
+        # Most NX-OS transceivers return with a softReleaseMinVer format
         # as follows:
         #     NX-OS 7.03I4.2
         # The desired format is as follows:
