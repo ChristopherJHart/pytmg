@@ -4,6 +4,16 @@ Base class for the pyTMG library.
 import json
 import requests
 from pytmg.TMGResult import TMGResult
+from pytmg.models.tmg_filters import (
+    CABLE_TYPE_FILTERS,
+    DATA_RATE_FILTERS,
+    FORM_FACTOR_FILTERS,
+    REACH_FILTERS,
+    OS_TYPE_FILTERS,
+    XCVR_PRODUCT_FAMILY_FILTERS,
+    XCVR_PRODUCT_ID_FILTERS,
+    NETWORK_DEVICE_PRODUCT_FAMILY_FILTERS,
+)
 
 
 class TMG:
@@ -37,22 +47,153 @@ class TMG:
         # TODO: Add support for advanced search functionality - right now,
         #       only "search_input" is really supported.
         body = {
-            "cableType": cable_type,
-            "dataRate": data_rate,
-            "formFactor": form_factor,
-            "reach": reach,
+            "cableType": self._validate_cable_type(cable_type),
+            "dataRate": self._validate_data_rate(data_rate),
+            "formFactor": self._validate_form_factor(form_factor),
+            "reach": self._validate_reach(reach),
             "searchInput": search_input,
-            "osType": os_type,
-            "transceiverProductFamily": transceiver_product_family,
-            "transceiverProductID": transceiver_product_id,
-            "networkDeviceProductFamily": network_device_product_family,
-            "networkDeviceProductID": network_device_product_id,
+            "osType": self._validate_os_type(os_type),
+            "transceiverProductFamily": self._validate_transceiver_product_family(
+                transceiver_product_family
+            ),
+            "transceiverProductID": self._validate_transceiver_product_id(
+                transceiver_product_id
+            ),
+            "networkDeviceProductFamily": self._validate_network_device_product_family(
+                network_device_product_family
+            ),
+            "networkDeviceProductID": self._validate_network_device_product_id(
+                network_device_product_id
+            ),
         }
         headers = {"content-type": "application/json"}
 
         res = requests.post(self.search_url, json=body, headers=headers)
         res.raise_for_status()
         return res.json()
+
+    def _validate_cable_type(self, cable_type):
+        if not cable_type:
+            return cable_type
+        valid_cable_types = CABLE_TYPE_FILTERS
+        validated_cable_type = [
+            ct for ct in valid_cable_types if ct["name"] == cable_type
+        ]
+        if validated_cable_type:
+            return validated_cable_type
+        else:
+            raise ValueError(f'Invalid Cable Type "{cable_type}" specified')
+
+    def _validate_data_rate(self, data_rate):
+        if not data_rate:
+            return data_rate
+        valid_data_rates = DATA_RATE_FILTERS
+        validated_data_rate = [dr for dr in valid_data_rates if dr["name"] == data_rate]
+        if validated_data_rate:
+            return validated_data_rate
+        else:
+            raise ValueError(f'Invalid Data Rate "{data_rate}" specified')
+
+    def _validate_form_factor(self, form_factor):
+        if not form_factor:
+            return form_factor
+        valid_form_factors = FORM_FACTOR_FILTERS
+        validated_form_factor = [
+            ff for ff in valid_form_factors if ff["name"] == form_factor
+        ]
+        if validated_form_factor:
+            return validated_form_factor
+        else:
+            raise ValueError(f'Invalid Form Factor "{form_factor}" specified')
+
+    def _validate_reach(self, reach):
+        if not reach:
+            return reach
+        valid_reaches = REACH_FILTERS
+        validated_reach = [r for r in valid_reaches if r["name"] == reach]
+        if validated_reach:
+            return validated_reach
+        else:
+            raise ValueError(f'Invalid Reach "{reach}" specified')
+
+    def _validate_os_type(self, os_type):
+        if not os_type:
+            return os_type
+        valid_os_types = OS_TYPE_FILTERS
+        validated_os_type = [os for os in valid_os_types if os["name"] == os_type]
+        if validated_os_type:
+            return validated_os_type
+        else:
+            raise ValueError(f'Invalid OS Type "{os_type}" specified')
+
+    def _validate_transceiver_product_family(self, transceiver_product_family):
+        if not transceiver_product_family:
+            return transceiver_product_family
+        valid_xcvr_product_families = XCVR_PRODUCT_FAMILY_FILTERS
+        validated_pf = [
+            pf
+            for pf in valid_xcvr_product_families
+            if pf["name"] == transceiver_product_family
+        ]
+        if validated_pf:
+            return validated_pf
+        else:
+            raise ValueError(
+                f'Invalid Transceiver Product Family "{transceiver_product_family}" specified'
+            )
+
+    def _validate_transceiver_product_id(self, transceiver_product_id):
+        if not transceiver_product_id:
+            return transceiver_product_id
+        valid_xcvr_product_ids = XCVR_PRODUCT_ID_FILTERS
+        validated_pid = [
+            pid
+            for pid in valid_xcvr_product_ids
+            if pid["name"] == transceiver_product_id
+        ]
+        if validated_pid:
+            return validated_pid
+        else:
+            raise ValueError(
+                f'Invalid Transceiver Product ID "{transceiver_product_id}" specified'
+            )
+
+    def _validate_network_device_product_family(self, network_device_product_family):
+        if not network_device_product_family:
+            return network_device_product_family
+        valid_device_product_families = NETWORK_DEVICE_PRODUCT_FAMILY_FILTERS
+        validated_pf = [
+            pf
+            for pf in valid_device_product_families
+            if pf["name"] == network_device_product_family
+        ]
+        if validated_pf:
+            return validated_pf
+        else:
+            raise ValueError(
+                f'Invalid Network Device Product Family "{network_device_product_family}" specified'
+            )
+
+    def _validate_network_device_product_id(self, network_device_product_id):
+        # TODO: Not yet supported. Need to reverse-engineer how TMG utilizes this field.
+        if not network_device_product_id:
+            return network_device_product_id
+        else:
+            raise ValueError(
+                f'Invalid Network Device Product ID "{network_device_product_id}" specified'
+            )
+        # valid_device_product_ids = []
+        # validated_pid = [
+        #     pid
+        #     for pid in valid_device_product_ids
+        #     if pid["name"] == network_device_product_id
+        # ]
+        # if validated_pid:
+        #     return validated_pid
+        # else:
+        #     raise ValueError(
+        #         f'Invalid Network Device Product ID "{network_device_product_id}" specified'
+        #     )
 
     def search(self, **kwargs):
         """
