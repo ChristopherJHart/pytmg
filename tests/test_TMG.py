@@ -7,7 +7,7 @@ def test_tmg_init():
     assert tmg is not None
 
 
-class TestDeviceSearching:
+# class TestDeviceSearching:
     # def test_tmg_search_for_n9k_93180yc_ex(self):
     #     tmg = TMG.TMG()
     #     res = tmg.search_device("N9K-C93180YC-EX")
