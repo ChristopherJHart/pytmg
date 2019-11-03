@@ -49,8 +49,8 @@ class TMGResult:
         match the search parameters are organized under each TMGNetworkDevice
         object.
 
-        :param dict input_results: A dictionary containing the results of a TMG search
-            against Cisco's TMG API.
+        :param dict input_results: A dictionary containing the results of a TMG
+            object's search against Cisco's TMG API.
         """
         self.result = input_results
         self.total_count = self.result["totalCount"]
