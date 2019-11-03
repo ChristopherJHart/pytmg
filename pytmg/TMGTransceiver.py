@@ -1,8 +1,31 @@
+"""
+Class representing a Cisco-branded transceiver based upon results of Cisco TMG
+API
+"""
 import re
 
 
 class TMGTransceiver:
+    """
+    An object that represents a Cisco-branded transceiver within the context of
+    Cisco's TMG API.
+
+    """
+
     def __init__(self, input):
+        """
+        Instantiates TMGTransceiver object and parses relevant results of 
+        Cisco's TMG API.
+
+        Cisco's TMG API links specific PIDs/models of transceivers to network
+        devices to indicate support. Furthermore, information about how a
+        transceiver is supported (such as operating system version,
+        environmental factors such as temperature range, etc.) is included.
+
+        :param dict input: A dictionary containing the results of a TMG object 
+            search against Cisco TMG's API relevant to a specific
+            transceiver
+        """
         self.result = input
         self.tmg_id = self.result["tmgId"]
         self.product_family_id = self.result["productFamilyId"]
@@ -42,6 +65,23 @@ class TMGTransceiver:
         self.clean_soft_release_min_ver = self._clean_soft_release()
 
     def _clean_soft_release(self):
+        """
+        Normalize network device software release provided by Cisco's TMG API.
+
+        Cisco's TMG API sometimes presents network device software releases
+        in a format that is inconsistent with the "official" format. The
+        purpose of this method is to attempt to normalize the software
+        release format presented by Cisco's TMG API to allow better
+        interoperability.
+
+        Currently, the below operating systems are supported:
+
+        * Full Support:
+
+        * Partial Support:
+          - ACI
+          - NX-OS
+        """
         if self.os_type == "ACI":
             return self._clean_aci_soft_release()
         elif self.os_type == "NX-OS":
@@ -51,30 +91,48 @@ class TMGTransceiver:
             return self.soft_release_min_ver
 
     def _clean_aci_soft_release(self):
-        # Most ACI transceivers return with a softReleaseMinVer format
-        # as follows:
-        #     ACI-N9KDK9-11.3(2)
-        # The desired format is as follows:
-        #     11.3(2)
-        # Our goal is to turn the first format into the second format.
-        # We accomplish this by simply replacing the "ACI-N9KDK9-"
-        # substring in the softReleaseMinVer value.
+        """
+        Normalize Cisco ACI network device software releases provided by
+        Cisco's TMG API.
+
+        Most Cisco-branded transceivers supported by ACI software return
+        with a softReleaseMinVer format as follows:
+
+            ACI-N9KDK9-11.3(2)
+
+        The desired format is as follows:
+
+            11.3(2)
+
+        Our goal is to turn the first format into the second format.
+        We accomplish this by simply replacing the "ACI-N9KDK9-"
+        substring in the softReleaseMinVer value.
+        """
         if "ACI-N9KDK9-" in self.soft_release_min_ver:
             return self.soft_release_min_ver.replace("ACI-N9KDK9-", "")
 
     def _clean_nxos_soft_release(self):
-        # Most NX-OS transceivers return with a softReleaseMinVer format
-        # as follows:
-        #     NX-OS 7.03I4.2
-        # The desired format is as follows:
-        #     7.0(3)I4(2)
-        # Our goal is to turn the first format into the second format.
-        # We accomplish this with a regex string identifying:
-        # 1. The major release (7.0(3)) (not part of a capture group)
-        # 2. The minor release (I4) (capture group 1)
-        # 3. The maintenance release (2) (capture group 2)
+        """
+        Normalize Cisco NX-OS network device software releases provided by
+        Cisco's TMG API.
+
+        Most Cisco-branded transceivers supported by NX-OS software return
+        with a softReleaseMinVer format as follows:
+
+            NX-OS 7.03I4.2
+
+        The desired format is as follows:
+
+            7.0(3)I4(2)
+
+        Our goal is to turn the first format into the second format.
+        We accomplish this with a regex string identifying:
+        1. The major release (7.0(3)) (not part of a capture group)
+        2. The minor release (I4) (capture group 1)
+        3. The maintenance release (2) (capture group 2)
+        """
+        # TODO: Add support for 9.x software releases
         if "NX-OS" in self.soft_release_min_ver:
-            # TODO: Add support for 9.x software releases
             nxos_dirty_re = r"NX-OS 7.03I(\d+)\.(\d+)"
             res = re.search(nxos_dirty_re, self.soft_release_min_ver)
             if res:
