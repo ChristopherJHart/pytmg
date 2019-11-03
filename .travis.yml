@@ -1,0 +1,31 @@
+language: python
+
+services:
+  - docker
+
+python:
+  - "3.6"
+
+install:
+  - pip install .
+  - pip install black
+  - pip install pytest
+
+script:
+  - python -m pytest
+  - black --check pytmg/
+
+jobs:
+  include:
+    - stage: pypi release
+      python: 3.6
+      script: echo "Deploying to PyPI..."
+      deploy:
+        - provider: pypi
+          distributions: sdist
+          server: https://upload.pypi.org/legacy/
+          user: $PYPI_USERNAME
+          password: $PYPI_PASSWORD
+          on:
+            branch: master
+            tags: true
