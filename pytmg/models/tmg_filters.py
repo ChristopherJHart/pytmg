@@ -108,6 +108,13 @@ DATA_RATE_FILTERS = [
         "filtername": "dataRate",
     },
     {
+        "id": "10",
+        "name": "10 Gbps",
+        "count": "0",
+        "filterChecked": "true",
+        "filtername": "dataRate",
+    },
+    {
         "id": "121",
         "name": "8 Gbps",
         "count": "0",

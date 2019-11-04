@@ -10,11 +10,11 @@ def test_tmg_init():
     assert tmg is not None
 
 
-class TestPrivateSearchMethod:
+class TestPrivateSearchMethodSimple:
     @responses.activate
     def test_tmg_private_search_for_n9k_93180yc_ex(self):
         resp_json = {
-            "totalCount": 1,
+            "totalCount": "1",
             "itemPerPage": None,
             "page": None,
             "networkDevices": [
@@ -47,7 +47,7 @@ class TestPrivateSearchMethod:
     @responses.activate
     def test_tmg_private_search_for_n9k_9372px(self):
         resp_json = {
-            "totalCount": 1,
+            "totalCount": "1",
             "itemPerPage": None,
             "page": None,
             "networkDevices": [
@@ -87,7 +87,7 @@ class TestPrivateSearchMethod:
     @responses.activate
     def test_tmg_private_search_for_ws_c3750_24ps(self):
         resp_json = {
-            "totalCount": 1,
+            "totalCount": "1",
             "itemPerPage": None,
             "page": None,
             "networkDevices": [
@@ -120,7 +120,7 @@ class TestPrivateSearchMethod:
     @responses.activate
     def test_tmg_private_search_for_all_3750s(self):
         resp_json = {
-            "totalCount": 2,
+            "totalCount": "2",
             "itemPerPage": None,
             "page": None,
             "networkDevices": [
@@ -226,11 +226,11 @@ class TestPrivateSearchMethod:
         assert "WS-C3750X-24S" in product_list
 
 
-class TestDeviceSearching:
+class TestDeviceSearchingSimple:
     @responses.activate
     def test_tmg_search_for_n9k_93180yc_ex(self):
         resp_json = {
-            "totalCount": 1,
+            "totalCount": "1",
             "itemPerPage": None,
             "page": None,
             "networkDevices": [
@@ -258,7 +258,7 @@ class TestDeviceSearching:
     @responses.activate
     def test_tmg_search_for_n9k_9372px(self):
         resp_json = {
-            "totalCount": 1,
+            "totalCount": "1",
             "itemPerPage": None,
             "page": None,
             "networkDevices": [
@@ -287,7 +287,7 @@ class TestDeviceSearching:
     @responses.activate
     def test_tmg_search_for_ws_c3750_24ps(self):
         resp_json = {
-            "totalCount": 1,
+            "totalCount": "1",
             "itemPerPage": None,
             "page": None,
             "networkDevices": [
@@ -315,7 +315,7 @@ class TestDeviceSearching:
     @responses.activate
     def test_tmg_search_all_3750s(self):
         resp_json = {
-            "totalCount": 2,
+            "totalCount": "2",
             "itemPerPage": None,
             "page": None,
             "networkDevices": [
@@ -421,7 +421,7 @@ class TestDeviceSearching:
             payload = json.loads(request.body)
             if payload["searchInput"][0] == "N9K-C93180YC-FX":
                 resp_json = {
-                    "totalCount": 1,
+                    "totalCount": "1",
                     "itemPerPage": None,
                     "page": None,
                     "networkDevices": [
@@ -441,7 +441,7 @@ class TestDeviceSearching:
                 )
             elif payload["searchInput"][0] == "C9300-48S":
                 resp_json = {
-                    "totalCount": 1,
+                    "totalCount": "1",
                     "itemPerPage": None,
                     "page": None,
                     "networkDevices": [
@@ -461,7 +461,7 @@ class TestDeviceSearching:
                 )
             elif payload["searchInput"][0] == "2951":
                 resp_json = {
-                    "totalCount": 1,
+                    "totalCount": "1",
                     "itemPerPage": None,
                     "page": None,
                     "networkDevices": [
@@ -501,6 +501,551 @@ class TestDeviceSearching:
         for result in res_list:
             for result_device in result.network_devices:
                 assert result_device.product_id in device_list
+
+
+class TestPrivateSearchMethodAdvanced:
+    @responses.activate
+    def test_tmg_private_search_advanced_ios_xe_fet_10g(self):
+        resp_json = {
+            "totalCount": "2",
+            "itemPerPage": None,
+            "page": None,
+            "networkDevices": [
+                {
+                    "productFamily": "C9300",
+                    "networkFamilyDataSheet": "https://www.cisco.com/c/en/us/products/switches/catalyst-9300-series-switches/index.html",
+                    "networkAndTransceiverCompatibility": [
+                        {
+                            "productId": "C9300-NM-8X",
+                            "transceivers": [
+                                {
+                                    "tmgId": "18751",
+                                    "productFamilyId": "12",
+                                    "productFamily": "SFP10G",
+                                    "productModelId": "99",
+                                    "productId": "FET-10G",
+                                    "version": " ",
+                                    "versionId": None,
+                                    "description": None,
+                                    "formFactor": "SFP+",
+                                    "reach": "100m",
+                                    "temperatureRange": "0 to 70C",
+                                    "digitalDiagnostic": "N",
+                                    "cableType": "Duplex Fiber",
+                                    "media": "MMF",
+                                    "connectorType": "LC",
+                                    "transmissionStandard": " ",
+                                    "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/data_sheet_c78-455693.pdf",
+                                    "endOfSale": " ",
+                                    "dataRate": "10 Gbps",
+                                    "transceiverNotes": None,
+                                    "noteCount": "1",
+                                    "state": None,
+                                    "stateMessage": None,
+                                    "updatedOn": None,
+                                    "updatedBy": None,
+                                    "transceiverBusinessUnit": "TMG",
+                                    "networkModelId": "670",
+                                    "breakoutMode": " ",
+                                    "osType": "IOS XE",
+                                    "domSupport": " ",
+                                    "softReleaseMinVer": "IOS XE 16.5.1",
+                                    "networkDeviceNotes": None,
+                                    "releaseId": "657",
+                                    "softReleaseDOM": "—",
+                                    "type": "Optic",
+                                }
+                            ],
+                        }
+                    ],
+                },
+                {
+                    "productFamily": "C9300L",
+                    "networkFamilyDataSheet": "https://www.cisco.com/c/en/us/products/collateral/switches/catalyst-9500-series-switches/data_sheet-c78-738978.html",
+                    "networkAndTransceiverCompatibility": [
+                        {
+                            "productId": "C9300L-24T-4X",
+                            "transceivers": [
+                                {
+                                    "tmgId": "39519",
+                                    "productFamilyId": "12",
+                                    "productFamily": "SFP10G",
+                                    "productModelId": "99",
+                                    "productId": "FET-10G",
+                                    "version": " ",
+                                    "versionId": None,
+                                    "description": None,
+                                    "formFactor": "SFP+",
+                                    "reach": "100m",
+                                    "temperatureRange": "0 to 70C",
+                                    "digitalDiagnostic": "N",
+                                    "cableType": "Duplex Fiber",
+                                    "media": "MMF",
+                                    "connectorType": "LC",
+                                    "transmissionStandard": " ",
+                                    "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/data_sheet_c78-455693.pdf",
+                                    "endOfSale": " ",
+                                    "dataRate": "10 Gbps",
+                                    "transceiverNotes": None,
+                                    "noteCount": "0",
+                                    "state": None,
+                                    "stateMessage": None,
+                                    "updatedOn": None,
+                                    "updatedBy": None,
+                                    "transceiverBusinessUnit": "TMG",
+                                    "networkModelId": "1827",
+                                    "breakoutMode": " ",
+                                    "osType": "IOS XE",
+                                    "domSupport": " ",
+                                    "softReleaseMinVer": "IOS XE 16.12.1",
+                                    "networkDeviceNotes": None,
+                                    "releaseId": "1641",
+                                    "softReleaseDOM": "—",
+                                    "type": "Optic",
+                                }
+                            ],
+                        },
+                        {
+                            "productId": "C9300L-48T-4X",
+                            "transceivers": [
+                                {
+                                    "tmgId": "39573",
+                                    "productFamilyId": "12",
+                                    "productFamily": "SFP10G",
+                                    "productModelId": "99",
+                                    "productId": "FET-10G",
+                                    "version": " ",
+                                    "versionId": None,
+                                    "description": None,
+                                    "formFactor": "SFP+",
+                                    "reach": "100m",
+                                    "temperatureRange": "0 to 70C",
+                                    "digitalDiagnostic": "N",
+                                    "cableType": "Duplex Fiber",
+                                    "media": "MMF",
+                                    "connectorType": "LC",
+                                    "transmissionStandard": " ",
+                                    "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/data_sheet_c78-455693.pdf",
+                                    "endOfSale": " ",
+                                    "dataRate": "10 Gbps",
+                                    "transceiverNotes": None,
+                                    "noteCount": "0",
+                                    "state": None,
+                                    "stateMessage": None,
+                                    "updatedOn": None,
+                                    "updatedBy": None,
+                                    "transceiverBusinessUnit": "TMG",
+                                    "networkModelId": "1828",
+                                    "breakoutMode": " ",
+                                    "osType": "IOS XE",
+                                    "domSupport": " ",
+                                    "softReleaseMinVer": "IOS XE 16.12.1",
+                                    "networkDeviceNotes": None,
+                                    "releaseId": "1641",
+                                    "softReleaseDOM": "—",
+                                    "type": "Optic",
+                                }
+                            ],
+                        },
+                        {
+                            "productId": "C9300L-24P-4X",
+                            "transceivers": [
+                                {
+                                    "tmgId": "39627",
+                                    "productFamilyId": "12",
+                                    "productFamily": "SFP10G",
+                                    "productModelId": "99",
+                                    "productId": "FET-10G",
+                                    "version": " ",
+                                    "versionId": None,
+                                    "description": None,
+                                    "formFactor": "SFP+",
+                                    "reach": "100m",
+                                    "temperatureRange": "0 to 70C",
+                                    "digitalDiagnostic": "N",
+                                    "cableType": "Duplex Fiber",
+                                    "media": "MMF",
+                                    "connectorType": "LC",
+                                    "transmissionStandard": " ",
+                                    "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/data_sheet_c78-455693.pdf",
+                                    "endOfSale": " ",
+                                    "dataRate": "10 Gbps",
+                                    "transceiverNotes": None,
+                                    "noteCount": "0",
+                                    "state": None,
+                                    "stateMessage": None,
+                                    "updatedOn": None,
+                                    "updatedBy": None,
+                                    "transceiverBusinessUnit": "TMG",
+                                    "networkModelId": "1829",
+                                    "breakoutMode": " ",
+                                    "osType": "IOS XE",
+                                    "domSupport": " ",
+                                    "softReleaseMinVer": "IOS XE 16.12.1",
+                                    "networkDeviceNotes": None,
+                                    "releaseId": "1641",
+                                    "softReleaseDOM": "—",
+                                    "type": "Optic",
+                                }
+                            ],
+                        },
+                        {
+                            "productId": "C9300L-48P-4X",
+                            "transceivers": [
+                                {
+                                    "tmgId": "42136",
+                                    "productFamilyId": "12",
+                                    "productFamily": "SFP10G",
+                                    "productModelId": "99",
+                                    "productId": "FET-10G",
+                                    "version": " ",
+                                    "versionId": None,
+                                    "description": None,
+                                    "formFactor": "SFP+",
+                                    "reach": "100m",
+                                    "temperatureRange": "0 to 70C",
+                                    "digitalDiagnostic": "N",
+                                    "cableType": "Duplex Fiber",
+                                    "media": "MMF",
+                                    "connectorType": "LC",
+                                    "transmissionStandard": " ",
+                                    "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/data_sheet_c78-455693.pdf",
+                                    "endOfSale": " ",
+                                    "dataRate": "10 Gbps",
+                                    "transceiverNotes": None,
+                                    "noteCount": "0",
+                                    "state": None,
+                                    "stateMessage": None,
+                                    "updatedOn": None,
+                                    "updatedBy": None,
+                                    "transceiverBusinessUnit": "TMG",
+                                    "networkModelId": "1830",
+                                    "breakoutMode": " ",
+                                    "osType": "IOS XE",
+                                    "domSupport": " ",
+                                    "softReleaseMinVer": "IOS XE 16.12.1",
+                                    "networkDeviceNotes": None,
+                                    "releaseId": "1641",
+                                    "softReleaseDOM": "—",
+                                    "type": "Optic",
+                                }
+                            ],
+                        },
+                    ],
+                },
+            ],
+        }
+        responses.add(
+            responses.POST,
+            "https://tmgmatrix.cisco.com/public/api/networkdevice/search",
+            json=resp_json,
+            status=200,
+        )
+
+        tmg = TMG.TMG()
+        res = tmg._search(
+            cable_type="Duplex Fiber",
+            data_rate="10 Gbps",
+            form_factor="SFP+",
+            reach="100m",
+            os_type="IOS XE",
+        )
+        assert res is not None
+        assert res["totalCount"] >= 2
+        devices = res["networkDevices"]
+
+        # Verify product families
+        assert devices[0]["productFamily"] == "C9300"
+        assert devices[1]["productFamily"] == "C9300L"
+
+        # Verify device PIDs
+        dev_one = devices[0]["networkAndTransceiverCompatibility"][0]
+        dev_two = devices[1]["networkAndTransceiverCompatibility"][0]
+        dev_three = devices[1]["networkAndTransceiverCompatibility"][1]
+        dev_four = devices[1]["networkAndTransceiverCompatibility"][2]
+        dev_five = devices[1]["networkAndTransceiverCompatibility"][3]
+        assert dev_one["productId"] == "C9300-NM-8X"
+        assert dev_two["productId"] == "C9300L-24T-4X"
+        assert dev_three["productId"] == "C9300L-48T-4X"
+        assert dev_four["productId"] == "C9300L-24P-4X"
+        assert dev_five["productId"] == "C9300L-48P-4X"
+
+        # Verify each device's transceivers
+        dev_one["transceivers"][0]["productId"] == "FET-10G"
+        dev_two["transceivers"][0]["productId"] == "FET-10G"
+        dev_three["transceivers"][0]["productId"] == "FET-10G"
+        dev_four["transceivers"][0]["productId"] == "FET-10G"
+        dev_five["transceivers"][0]["productId"] == "FET-10G"
+
+
+class TestDeviceSearchingAdvanced:
+    @responses.activate
+    def test_tmg_search_advanced_ios_xe_fet_10g(self):
+        resp_json = {
+            "totalCount": "2",
+            "itemPerPage": None,
+            "page": None,
+            "networkDevices": [
+                {
+                    "productFamily": "C9300",
+                    "networkFamilyDataSheet": "https://www.cisco.com/c/en/us/products/switches/catalyst-9300-series-switches/index.html",
+                    "networkAndTransceiverCompatibility": [
+                        {
+                            "productId": "C9300-NM-8X",
+                            "transceivers": [
+                                {
+                                    "tmgId": "18751",
+                                    "productFamilyId": "12",
+                                    "productFamily": "SFP10G",
+                                    "productModelId": "99",
+                                    "productId": "FET-10G",
+                                    "version": " ",
+                                    "versionId": None,
+                                    "description": None,
+                                    "formFactor": "SFP+",
+                                    "reach": "100m",
+                                    "temperatureRange": "0 to 70C",
+                                    "digitalDiagnostic": "N",
+                                    "cableType": "Duplex Fiber",
+                                    "media": "MMF",
+                                    "connectorType": "LC",
+                                    "transmissionStandard": " ",
+                                    "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/data_sheet_c78-455693.pdf",
+                                    "endOfSale": " ",
+                                    "dataRate": "10 Gbps",
+                                    "transceiverNotes": None,
+                                    "noteCount": "1",
+                                    "state": None,
+                                    "stateMessage": None,
+                                    "updatedOn": None,
+                                    "updatedBy": None,
+                                    "transceiverBusinessUnit": "TMG",
+                                    "networkModelId": "670",
+                                    "breakoutMode": " ",
+                                    "osType": "IOS XE",
+                                    "domSupport": " ",
+                                    "softReleaseMinVer": "IOS XE 16.5.1",
+                                    "networkDeviceNotes": None,
+                                    "releaseId": "657",
+                                    "softReleaseDOM": "—",
+                                    "type": "Optic",
+                                }
+                            ],
+                        }
+                    ],
+                },
+                {
+                    "productFamily": "C9300L",
+                    "networkFamilyDataSheet": "https://www.cisco.com/c/en/us/products/collateral/switches/catalyst-9500-series-switches/data_sheet-c78-738978.html",
+                    "networkAndTransceiverCompatibility": [
+                        {
+                            "productId": "C9300L-24T-4X",
+                            "transceivers": [
+                                {
+                                    "tmgId": "39519",
+                                    "productFamilyId": "12",
+                                    "productFamily": "SFP10G",
+                                    "productModelId": "99",
+                                    "productId": "FET-10G",
+                                    "version": " ",
+                                    "versionId": None,
+                                    "description": None,
+                                    "formFactor": "SFP+",
+                                    "reach": "100m",
+                                    "temperatureRange": "0 to 70C",
+                                    "digitalDiagnostic": "N",
+                                    "cableType": "Duplex Fiber",
+                                    "media": "MMF",
+                                    "connectorType": "LC",
+                                    "transmissionStandard": " ",
+                                    "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/data_sheet_c78-455693.pdf",
+                                    "endOfSale": " ",
+                                    "dataRate": "10 Gbps",
+                                    "transceiverNotes": None,
+                                    "noteCount": "0",
+                                    "state": None,
+                                    "stateMessage": None,
+                                    "updatedOn": None,
+                                    "updatedBy": None,
+                                    "transceiverBusinessUnit": "TMG",
+                                    "networkModelId": "1827",
+                                    "breakoutMode": " ",
+                                    "osType": "IOS XE",
+                                    "domSupport": " ",
+                                    "softReleaseMinVer": "IOS XE 16.12.1",
+                                    "networkDeviceNotes": None,
+                                    "releaseId": "1641",
+                                    "softReleaseDOM": "—",
+                                    "type": "Optic",
+                                }
+                            ],
+                        },
+                        {
+                            "productId": "C9300L-48T-4X",
+                            "transceivers": [
+                                {
+                                    "tmgId": "39573",
+                                    "productFamilyId": "12",
+                                    "productFamily": "SFP10G",
+                                    "productModelId": "99",
+                                    "productId": "FET-10G",
+                                    "version": " ",
+                                    "versionId": None,
+                                    "description": None,
+                                    "formFactor": "SFP+",
+                                    "reach": "100m",
+                                    "temperatureRange": "0 to 70C",
+                                    "digitalDiagnostic": "N",
+                                    "cableType": "Duplex Fiber",
+                                    "media": "MMF",
+                                    "connectorType": "LC",
+                                    "transmissionStandard": " ",
+                                    "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/data_sheet_c78-455693.pdf",
+                                    "endOfSale": " ",
+                                    "dataRate": "10 Gbps",
+                                    "transceiverNotes": None,
+                                    "noteCount": "0",
+                                    "state": None,
+                                    "stateMessage": None,
+                                    "updatedOn": None,
+                                    "updatedBy": None,
+                                    "transceiverBusinessUnit": "TMG",
+                                    "networkModelId": "1828",
+                                    "breakoutMode": " ",
+                                    "osType": "IOS XE",
+                                    "domSupport": " ",
+                                    "softReleaseMinVer": "IOS XE 16.12.1",
+                                    "networkDeviceNotes": None,
+                                    "releaseId": "1641",
+                                    "softReleaseDOM": "—",
+                                    "type": "Optic",
+                                }
+                            ],
+                        },
+                        {
+                            "productId": "C9300L-24P-4X",
+                            "transceivers": [
+                                {
+                                    "tmgId": "39627",
+                                    "productFamilyId": "12",
+                                    "productFamily": "SFP10G",
+                                    "productModelId": "99",
+                                    "productId": "FET-10G",
+                                    "version": " ",
+                                    "versionId": None,
+                                    "description": None,
+                                    "formFactor": "SFP+",
+                                    "reach": "100m",
+                                    "temperatureRange": "0 to 70C",
+                                    "digitalDiagnostic": "N",
+                                    "cableType": "Duplex Fiber",
+                                    "media": "MMF",
+                                    "connectorType": "LC",
+                                    "transmissionStandard": " ",
+                                    "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/data_sheet_c78-455693.pdf",
+                                    "endOfSale": " ",
+                                    "dataRate": "10 Gbps",
+                                    "transceiverNotes": None,
+                                    "noteCount": "0",
+                                    "state": None,
+                                    "stateMessage": None,
+                                    "updatedOn": None,
+                                    "updatedBy": None,
+                                    "transceiverBusinessUnit": "TMG",
+                                    "networkModelId": "1829",
+                                    "breakoutMode": " ",
+                                    "osType": "IOS XE",
+                                    "domSupport": " ",
+                                    "softReleaseMinVer": "IOS XE 16.12.1",
+                                    "networkDeviceNotes": None,
+                                    "releaseId": "1641",
+                                    "softReleaseDOM": "—",
+                                    "type": "Optic",
+                                }
+                            ],
+                        },
+                        {
+                            "productId": "C9300L-48P-4X",
+                            "transceivers": [
+                                {
+                                    "tmgId": "42136",
+                                    "productFamilyId": "12",
+                                    "productFamily": "SFP10G",
+                                    "productModelId": "99",
+                                    "productId": "FET-10G",
+                                    "version": " ",
+                                    "versionId": None,
+                                    "description": None,
+                                    "formFactor": "SFP+",
+                                    "reach": "100m",
+                                    "temperatureRange": "0 to 70C",
+                                    "digitalDiagnostic": "N",
+                                    "cableType": "Duplex Fiber",
+                                    "media": "MMF",
+                                    "connectorType": "LC",
+                                    "transmissionStandard": " ",
+                                    "transceiverModelDataSheet": "https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/transceiver-modules/data_sheet_c78-455693.pdf",
+                                    "endOfSale": " ",
+                                    "dataRate": "10 Gbps",
+                                    "transceiverNotes": None,
+                                    "noteCount": "0",
+                                    "state": None,
+                                    "stateMessage": None,
+                                    "updatedOn": None,
+                                    "updatedBy": None,
+                                    "transceiverBusinessUnit": "TMG",
+                                    "networkModelId": "1830",
+                                    "breakoutMode": " ",
+                                    "osType": "IOS XE",
+                                    "domSupport": " ",
+                                    "softReleaseMinVer": "IOS XE 16.12.1",
+                                    "networkDeviceNotes": None,
+                                    "releaseId": "1641",
+                                    "softReleaseDOM": "—",
+                                    "type": "Optic",
+                                }
+                            ],
+                        },
+                    ],
+                },
+            ],
+        }
+        responses.add(
+            responses.POST,
+            "https://tmgmatrix.cisco.com/public/api/networkdevice/search",
+            json=resp_json,
+            status=200,
+        )
+
+        tmg = TMG.TMG()
+        params = {
+            "cable_type": "Duplex Fiber",
+            "data_rate": "10 Gbps",
+            "form_factor": "SFP+",
+            "reach": "100m",
+            "os_type": "IOS XE",
+        }
+        res = tmg.search(**params)
+        assert res is not None
+        assert res.total_count >= 2
+
+        # Verify product families
+        assert res.network_devices[0].product_family == "C9300"
+        assert res.network_devices[1].product_family == "C9300L"
+
+        # Verify device PIDs
+        assert res.network_devices[0].product_id == "C9300-NM-8X"
+        assert res.network_devices[1].product_id == "C9300L-24T-4X"
+        assert res.network_devices[2].product_id == "C9300L-48T-4X"
+        assert res.network_devices[3].product_id == "C9300L-24P-4X"
+        assert res.network_devices[4].product_id == "C9300L-48P-4X"
+
+        # Verify each device's transceivers
+        assert res.network_devices[0].transceivers[0] == "FET-10G"
+        assert res.network_devices[1].transceivers[0] == "FET-10G"
+        assert res.network_devices[2].transceivers[0] == "FET-10G"
+        assert res.network_devices[3].transceivers[0] == "FET-10G"
+        assert res.network_devices[4].transceivers[0] == "FET-10G"
 
 
 class TestCableTypeValidation:
@@ -740,6 +1285,21 @@ class TestDataRateValidation:
             {
                 "id": "9",
                 "name": "25 Gbps",
+                "count": "0",
+                "filterChecked": "true",
+                "filtername": "dataRate",
+            }
+        ]
+        tmg = TMG.TMG()
+        results = tmg._validate_data_rate(test_data_rate)
+        assert results == expected_return_data
+    
+    def test_data_rate_validation_10_gbps(self):
+        test_data_rate = "10 Gbps"
+        expected_return_data = [
+            {
+                "id": "10",
+                "name": "10 Gbps",
                 "count": "0",
                 "filterChecked": "true",
                 "filtername": "dataRate",
