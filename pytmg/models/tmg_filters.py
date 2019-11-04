@@ -39,7 +39,7 @@ CABLE_TYPE_FILTERS = [
         "name": "Cat5e/6A",
         "count": 0,
         "filterChecked": "true",
-        "filtername": "cableType"
+        "filtername": "cableType",
     },
 ]
 
@@ -126,7 +126,7 @@ DATA_RATE_FILTERS = [
         "name": "10/100/1000 Mbps",
         "count": 0,
         "filterChecked": "true",
-        "filtername": "dataRate"
+        "filtername": "dataRate",
     },
     {
         "id": "121",

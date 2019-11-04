@@ -92,7 +92,9 @@ class TMG:
         valid_data_rates = DATA_RATE_FILTERS
         validated_data_rates = []
         for data_rate in data_rates:
-            validated_data_rates += [dr for dr in valid_data_rates if dr["name"] == data_rate]
+            validated_data_rates += [
+                dr for dr in valid_data_rates if dr["name"] == data_rate
+            ]
         if validated_data_rates:
             return validated_data_rates
         else:
