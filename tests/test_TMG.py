@@ -751,7 +751,7 @@ class TestPrivateSearchMethodAdvanced:
             os_type="IOS XE",
         )
         assert res is not None
-        assert res["totalCount"] >= 2
+        assert int(res["totalCount"]) >= 2
         devices = res["networkDevices"]
 
         # Verify product families
@@ -1041,11 +1041,11 @@ class TestDeviceSearchingAdvanced:
         assert res.network_devices[4].product_id == "C9300L-48P-4X"
 
         # Verify each device's transceivers
-        assert res.network_devices[0].transceivers[0] == "FET-10G"
-        assert res.network_devices[1].transceivers[0] == "FET-10G"
-        assert res.network_devices[2].transceivers[0] == "FET-10G"
-        assert res.network_devices[3].transceivers[0] == "FET-10G"
-        assert res.network_devices[4].transceivers[0] == "FET-10G"
+        assert res.network_devices[0].transceivers[0].product_id == "FET-10G"
+        assert res.network_devices[1].transceivers[0].product_id == "FET-10G"
+        assert res.network_devices[2].transceivers[0].product_id == "FET-10G"
+        assert res.network_devices[3].transceivers[0].product_id == "FET-10G"
+        assert res.network_devices[4].transceivers[0].product_id == "FET-10G"
 
 
 class TestCableTypeValidation:
@@ -1293,7 +1293,7 @@ class TestDataRateValidation:
         tmg = TMG.TMG()
         results = tmg._validate_data_rate(test_data_rate)
         assert results == expected_return_data
-    
+
     def test_data_rate_validation_10_gbps(self):
         test_data_rate = "10 Gbps"
         expected_return_data = [
