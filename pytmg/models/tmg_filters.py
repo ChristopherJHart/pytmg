@@ -34,6 +34,13 @@ CABLE_TYPE_FILTERS = [
         "filterChecked": "true",
         "filtername": "cableType",
     },
+    {
+        "id": 6,
+        "name": "Cat5e/6A",
+        "count": 0,
+        "filterChecked": "true",
+        "filtername": "cableType"
+    },
 ]
 
 DATA_RATE_FILTERS = [
