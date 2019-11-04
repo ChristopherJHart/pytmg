@@ -205,6 +205,13 @@ FORM_FACTOR_FILTERS = [
 
 REACH_FILTERS = [
     {
+        "id": "2",
+        "name": "100m",
+        "count": "0",
+        "filterChecked": "true",
+        "filtername": "reach",
+    },
+    {
         "id": "81",
         "name": "220m",
         "count": "0",
