@@ -104,9 +104,9 @@ class TMGTransceiver:
 
             11.3(2)
 
-        Our goal is to turn the first format into the second format.
-        We accomplish this by simply replacing the "ACI-N9KDK9-"
-        substring in the softReleaseMinVer value.
+        This method converts the first format into the second format.
+        This is done by simply replacing the "ACI-N9KDK9-" substring in 
+        the softReleaseMinVer value.
         """
         if "ACI-N9KDK9-" in self.soft_release_min_ver:
             return self.soft_release_min_ver.replace("ACI-N9KDK9-", "")
@@ -125,7 +125,8 @@ class TMGTransceiver:
 
             7.0(3)I4(2)
 
-        We create the desired format with a regex string identifying:
+        This method converts the first format into the second format with 
+        a regex string identifying:
         1. The major release (7.0(3)) (not part of a capture group)
         2. The minor release (I4) (capture group 1)
         3. The maintenance release (2) (capture group 2)
@@ -139,11 +140,11 @@ class TMGTransceiver:
 
             9.2(1)
         
-        We create the desired format with a regex string identifying:
+        This method converts the first format into the second format with a
+        regex string identifying:
         1. The minor release (2) (capture group 1)
         2. The maintenance release (1) (capture group 2)
         """
-        # TODO: Add support for 9.x software releases
         if "NX-OS" in self.soft_release_min_ver:
             nxos_7_dirty_re = r"NX-OS 7.03I(\d+)\.(\d+)"
             nxos_7_res = re.search(nxos_7_dirty_re, self.soft_release_min_ver)
