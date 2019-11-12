@@ -262,6 +262,27 @@ class TestDeviceSearchingSimple:
         assert "WS-C3750X-24S" in product_list
 
     @responses.activate
+    def test_tmg_search_xcvr_qsfp_40g_sr_bd(self):
+        resp_json = test_TMG_models.XCVR_QSFP_40G_SR_BD
+        responses.add(
+            responses.POST,
+            "https://tmgmatrix.cisco.com/public/api/networkdevice/search",
+            json=resp_json,
+            status=200,
+        )
+
+        tmg = TMG.TMG()
+        res = tmg.search_device("QSFP-40G-SR-BD")
+        assert res is not None
+        assert len(res.network_devices) == 3
+        assert res.network_devices[0].product_id == "C9400-SUP-1"
+        assert res.network_devices[1].product_id == "C9400-SUP-1XL"
+        assert res.network_devices[2].product_id == "C9400-SUP-1XL-Y"
+        for device in res.network_devices:
+            for xcvr in device.transceivers:
+                assert xcvr.product_id == "QSFP-40G-SR-BD"
+
+    @responses.activate
     def test_tmg_search_multiple_devices(self):
         def tmg_callback(request):
             payload = json.loads(request.body)
