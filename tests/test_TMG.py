@@ -133,7 +133,7 @@ class TestPrivateSearchMethodSimple:
         assert "WS-C3750X-48PF" in product_list
         assert "WS-C3750X-12S" in product_list
         assert "WS-C3750X-24S" in product_list
-    
+
     @responses.activate
     def test_tmg_private_search_for_xcvr_qsfp_40g_sr_bd(self):
         resp_json = test_TMG_models.XCVR_QSFP_40G_SR_BD
