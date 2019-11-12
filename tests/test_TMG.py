@@ -133,6 +133,35 @@ class TestPrivateSearchMethodSimple:
         assert "WS-C3750X-48PF" in product_list
         assert "WS-C3750X-12S" in product_list
         assert "WS-C3750X-24S" in product_list
+    
+    @responses.activate
+    def test_tmg_private_search_for_xcvr_qsfp_40g_sr_bd(self):
+        resp_json = test_TMG_models.XCVR_QSFP_40G_SR_BD
+        responses.add(
+            responses.POST,
+            "https://tmgmatrix.cisco.com/public/api/networkdevice/search",
+            json=resp_json,
+            status=200,
+        )
+
+        tmg = TMG.TMG()
+        res = tmg._search(search_input=["QSFP-40G-SR-BD"])
+        assert res is not None
+        assert res["totalCount"] == "33"
+        assert res["networkDevices"] is not None
+        assert len(res["networkDevices"]) == 1
+        product_list = [
+            dev["productId"]
+            for dev in res["networkDevices"][0]["networkAndTransceiverCompatibility"]
+        ]
+        assert "C9400-SUP-1" in product_list
+        assert "C9400-SUP-1XL" in product_list
+        assert "C9400-SUP-1XL-Y" in product_list
+
+        devices = res["networkDevices"][0]["networkAndTransceiverCompatibility"]
+        for device in devices:
+            for xcvr in device["transceivers"]:
+                assert xcvr["productId"] == "QSFP-40G-SR-BD"
 
 
 class TestDeviceSearchingSimple:
