@@ -3,17 +3,24 @@ language: python
 python:
   - "3.6"
 
-install:
-  - pip install .
-  - pip install black
-  - pip install pytest
+before_install:
+  - python --version
+  - pip install -U pip
+  - pip install -U pytest
+  - pip install -U black
+  - pip install -U responses
 
-script:
-  - python -m pytest
-  - black --check pytmg/
+install:
+  - pip install ".[test]" .
 
 jobs:
   include:
+    - stage: run unit tests
+      python: 3.6
+      script: pytest
+    - stage: test black code formatting
+      python: 3.6
+      script: black --check pytmg/
     - stage: pypi release
       python: 3.6
       script: echo "Deploying to PyPI..."

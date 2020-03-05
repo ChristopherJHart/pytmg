@@ -53,7 +53,7 @@ class TMGResult:
             object's search against Cisco's TMG API.
         """
         self.result = input_results
-        self.total_count = self.result["totalCount"]
+        self.total_count = int(self.result["totalCount"])
         self.network_devices = []
         for product_family in self.result["networkDevices"]:
             for network_device in product_family["networkAndTransceiverCompatibility"]:

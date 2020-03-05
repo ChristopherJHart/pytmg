@@ -104,9 +104,9 @@ class TMGTransceiver:
 
             11.3(2)
 
-        Our goal is to turn the first format into the second format.
-        We accomplish this by simply replacing the "ACI-N9KDK9-"
-        substring in the softReleaseMinVer value.
+        This method converts the first format into the second format.
+        This is done by simply replacing the "ACI-N9KDK9-" substring in 
+        the softReleaseMinVer value.
         """
         if "ACI-N9KDK9-" in self.soft_release_min_ver:
             return self.soft_release_min_ver.replace("ACI-N9KDK9-", "")
@@ -125,18 +125,38 @@ class TMGTransceiver:
 
             7.0(3)I4(2)
 
-        Our goal is to turn the first format into the second format.
-        We accomplish this with a regex string identifying:
+        This method converts the first format into the second format with 
+        a regex string identifying:
         1. The major release (7.0(3)) (not part of a capture group)
         2. The minor release (I4) (capture group 1)
         3. The maintenance release (2) (capture group 2)
+
+        Supported transceivers introduced in 9.x NX-OS software releases have
+        a softReleaseMinVer format as follows:
+
+            NX-OS 9.2.1
+
+        The desired format is as follows:
+
+            9.2(1)
+        
+        This method converts the first format into the second format with a
+        regex string identifying:
+        1. The minor release (2) (capture group 1)
+        2. The maintenance release (1) (capture group 2)
         """
-        # TODO: Add support for 9.x software releases
         if "NX-OS" in self.soft_release_min_ver:
-            nxos_dirty_re = r"NX-OS 7.03I(\d+)\.(\d+)"
-            res = re.search(nxos_dirty_re, self.soft_release_min_ver)
-            if res:
-                mnr_rel = res.group(1)
-                mnt_rel = res.group(2)
+            nxos_7_dirty_re = r"NX-OS 7.03I(\d+)\.(\d+)"
+            nxos_7_res = re.search(nxos_7_dirty_re, self.soft_release_min_ver)
+            if nxos_7_res:
+                mnr_rel = nxos_7_res.group(1)
+                mnt_rel = nxos_7_res.group(2)
                 clean_sw_rel = "7.0(3)I{}({})".format(mnr_rel, mnt_rel)
+                return clean_sw_rel
+            nxos_9_dirty_re = r"NX-OS 9.(\d+)\.(\d+)"
+            nxos_9_res = re.search(nxos_9_dirty_re, self.soft_release_min_ver)
+            if nxos_9_res:
+                mnr_rel = nxos_9_res.group(1)
+                mnt_rel = nxos_9_res.group(2)
+                clean_sw_rel = "9.{}({})".format(mnr_rel, mnt_rel)
                 return clean_sw_rel
