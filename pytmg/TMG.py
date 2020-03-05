@@ -20,7 +20,9 @@ class TMG:
         Instantiates an object of class TMG.
         """
         self.search_url = "https://tmgmatrix.cisco.com/public/api/networkdevice/search"
-        self.suggest_url = "https://tmgmatrix.cisco.com/public/api/networkdevice/autosuggest"
+        self.suggest_url = (
+            "https://tmgmatrix.cisco.com/public/api/networkdevice/autosuggest"
+        )
 
     def _search(
         self,
