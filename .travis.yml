@@ -26,10 +26,8 @@ jobs:
       script: echo "Deploying to PyPI..."
       deploy:
         - provider: pypi
-          distributions: sdist
-          server: https://upload.pypi.org/legacy/
-          user: $PYPI_USERNAME
-          password: $PYPI_PASSWORD
+          user: __token__
+          password: 
+            secure: IScpHZn94oVteDkn5RcD39HD9gpWb92oRoYXbu/EE3H4GwlepTjRuXCCXD/BOWa5tbFXFPM7LLWtluLFCUzOPqJi8dLkYeL+61ONpqX+M0KP+/gNK6tW2E+Gd2bCPoR0jwEqwO5uC3YeCpH3uu1+fzBffFzKJ1slCp4TiCqzX9ABFNjc2YKFjbZ21pSzkSSz1mnxagHdEySPssk3oO0GvEa/keuq6cjSUqDJLhXB3d5mM708IGsimd3MctnqtFMU5dcZ4dkM3TQIMxssVCnC5v8q6m5VQB1a2pZ6Z/RwtJuf0SHFuEaGS8ZJxfyuGq9o8EPvHlt3bMKvtZ78qDAilYIZ0nww+25udYKVYn2uMhiQgf0/9hSV5/aQyF7xRDp7iTrF0HYuS3F0TrZGWHydVjt7X/rcTPbk+LiQ7QANr5qNQaGmWg+9lNzlTqxCDwdjobpJyUK410XWLDXKmwrGA+PC8aKb6mYJ6vgzVFSPFq6ewqKHCkba3AbGy+3vlfoBoCEuaQOLuUcbbgMAPFJ+YQaZqhwT5e6BnzSj49fTIps1S7UBot6Hf3yX49TFFo4FCQ8hO5XHqMgmJzM2w0l3axm85NtbneznMF/aSCyYFT+QEylp7KZFfYKc8nWhrTzDZpdM4UvOAOhufCdurMlhaJ1U8VqHxKicxBUZyd68yPA=
           on:
             branch: master
-            tags: true
