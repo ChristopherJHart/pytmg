@@ -26,6 +26,5 @@ jobs:
       script: echo "Deploying to PyPI..."
       deploy:
         - provider: pypi
-          user: "__token__"
-          password: 
-            secure: "ZINWR85ogj+AhbUYdi599BvlGLAhodvkwtaMXQfK592oThKxFe/hxUz7eKN/8+opGIrrHaeg0Rs20iVOHZarRWQePMhC9S/bFuxl2YQR02yvSz7T4D5M3ta5YTHStgMwsuDEVTLmr+5HjAHY1u9ceYw/a+ePECiqikgADXV6+nbPU3fXFpna7H3OHP5sFdVMtESdNgd4DYc+uXi6ThbxcsTaoc4BvXF8XyAItFuNUvTKa8B96IEpCT17Zs5ym0JkQEMvqhapNqdBHkbemqbydB82mj6MxYGaGOm55Y/z+OTkMKpmrjB80+hBZ2S6KR6o3KQnBAmNXC7kAOpx1zcGZEklT8rcX58qt2Ka+63F+2BFg1uDSVx5pxNnhy8y0TYCRcmGqphfhYXhiz2OQ29RhPU6LDyhA8Jm/I6rw4iZcFXQ5dW4MTCSZOIYzGn963+dmofRIiDfn/7ANFmIqnTkze+g5cmFRnBJemO0eGtD5I+MhAvT9R2zbBfIzXMHVdqdsLbQjFz9xXS9DEaO0s/1E8Hsab+gqQdJQvC/QO4DEt3i1Km+scWoDW5TNSCVRSAMhLR/UEdPux17YIHStJ+xBTWzCICz/+JVdxyy0rFRVrq3Tlfo9l9HM/c9pqKSeD6+ZodzSuzhvj8hr32DlzOfZgliMiEj+GgbxqC0BWxooUM="
+          user: $PYPI_USERNAME
+          password: $PYPI_PASSWORD
